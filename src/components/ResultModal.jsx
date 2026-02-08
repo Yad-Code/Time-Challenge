@@ -13,4 +13,5 @@ export default function ResultModal({ result, targetTime }) {
       </form>
     </dialog>
   );
+  
 }
