@@ -5,8 +5,8 @@ export default function TimerChallenge({ title, targetTime }) {
   const timer = useRef();
   const dialog = useRef();
 
+  const [totalScore, setTotalScore] = useState(0);
   const [remainingTime, setRemainingTime] = useState(targetTime * 1000);
-
   const timerIsActive = remainingTime > 0 && remainingTime < targetTime * 1000;
 
   if (remainingTime <= 0) {
@@ -15,6 +15,10 @@ export default function TimerChallenge({ title, targetTime }) {
   }
 
   function handleReset() {
+    const score = Math.round((1 - remainingTime / (targetTime * 1000)) * 100);
+    if (score > totalScore && score != 100) {
+      setTotalScore(score);
+    }
     setRemainingTime(targetTime * 1000);
   }
 
@@ -40,6 +44,7 @@ export default function TimerChallenge({ title, targetTime }) {
 
       <section className="challenge">
         <h2>{title}</h2>
+        <p>Best Score: {totalScore}</p>
         <p className="challenge-time">
           {targetTime} second{targetTime > 1 ? "s" : ""}
         </p>
